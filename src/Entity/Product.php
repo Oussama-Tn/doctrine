@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +42,16 @@ class Product
      * @ORM\Column(type="boolean")
      */
     private $isAvailable;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\PurchaseOrder", mappedBy="product")
+     */
+    private $purchaseOrders;
+
+    public function __construct()
+    {
+        $this->purchaseOrders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -102,6 +114,34 @@ class Product
     public function setIsAvailable(bool $isAvailable): self
     {
         $this->isAvailable = $isAvailable;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PurchaseOrder[]
+     */
+    public function getPurchaseOrders(): Collection
+    {
+        return $this->purchaseOrders;
+    }
+
+    public function addPurchaseOrder(PurchaseOrder $purchaseOrder): self
+    {
+        if (!$this->purchaseOrders->contains($purchaseOrder)) {
+            $this->purchaseOrders[] = $purchaseOrder;
+            $purchaseOrder->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseOrder(PurchaseOrder $purchaseOrder): self
+    {
+        if ($this->purchaseOrders->contains($purchaseOrder)) {
+            $this->purchaseOrders->removeElement($purchaseOrder);
+            $purchaseOrder->removeProduct($this);
+        }
 
         return $this;
     }
