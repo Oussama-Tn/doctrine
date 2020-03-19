@@ -22,6 +22,7 @@ class Product
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ProductCategory", inversedBy="products")
+     * @Groups("products:read")
      */
     private $productCategory;
 
