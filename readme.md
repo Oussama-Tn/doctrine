@@ -51,3 +51,14 @@
         ```
     
     
+* Install the `serializer-pack`:
+
+  `composer require symfony/serializer-pack`
+  
+  * Use normalizer to transform objects to arrays
+    * https://www.youtube.com/watch?v=SG7GgcnR1F4
+
+  * Check different ways of transforming object to readable json inside TestController
+    * `return $this->json($randomProducts, 200, [], ['groups' => 'products:read']);`
+    * `NormalizerInterface $normalizer`
+    * `SerializerInterface $serializer`
