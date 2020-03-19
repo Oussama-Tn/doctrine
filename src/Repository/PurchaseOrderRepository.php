@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\PurchaseOrder;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
@@ -12,7 +11,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method PurchaseOrder[]    findAll()
  * @method PurchaseOrder[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PurchaseOrderRepository extends ServiceEntityRepository
+class PurchaseOrderRepository extends BaseRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
