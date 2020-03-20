@@ -1,6 +1,8 @@
 # Doctrine by example
 
+* Install the application:
 
+ `php bin/console app:install`
 * `composer create-project symfony/website-skeleton doctrine`
 
 * `php bin/console doctrine:database:create`
