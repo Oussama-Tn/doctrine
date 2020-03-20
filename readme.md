@@ -3,6 +3,29 @@
 * Install the application:
 
  `php bin/console app:install`
+
+* Database schema
+
+![Database Schema](database.png "Database Schema")
+
+* Entities
+
+    ```
+    User
+    PurchaseOrder
+    Product
+    ProductCategory
+    ```
+
+
+* Examples:
+
+    * Using repositories: `App\Controller\RepositoryController` [File](./src/Controller/RepositoryController.php)
+    * Using Query Builder: `App\Controller\QueryBuilderController`[File](./src/Controller/QueryBuilderController.php)
+
+
+## Symfony commands:
+
 * `composer create-project symfony/website-skeleton doctrine`
 
 * `php bin/console doctrine:database:create`

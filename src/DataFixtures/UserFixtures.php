@@ -16,7 +16,7 @@ class UserFixtures extends Fixture
      */
     private $faker;
     private $password = 'secret';
-    private $usersNumber = 30;
+    private $usersNumber = 15;
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -42,7 +42,7 @@ class UserFixtures extends Fixture
             $firstName = $this->faker->firstName;
             $lastName = $this->faker->lastName;
 
-            $user->setEmail($firstName . '.' . $lastName . '@doctrine.test');
+            $user->setEmail(strtolower($firstName . '.' . $lastName) . '@doctrine.test');
             $user->setFirstName($firstName);
             $user->setLastName($lastName);
             $user->setRegisterDate($this->faker->dateTimeBetween('-3 years', '-1 years'));

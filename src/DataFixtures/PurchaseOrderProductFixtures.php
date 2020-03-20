@@ -30,7 +30,7 @@ class PurchaseOrderProductFixtures extends Fixture implements DependentFixtureIn
         $purchaseOrders = $this->purchaseOrderRepository->findAll();
 
         foreach ($purchaseOrders as $purchaseOrder) {
-            $randomProducts = $this->productRepository->findInRandomOrder(rand(2, 5));
+            $randomProducts = $this->productRepository->findInRandomOrder(rand(2, 3));
             foreach ($randomProducts as $product) {
                 $purchaseOrder->addProduct($product);
             }

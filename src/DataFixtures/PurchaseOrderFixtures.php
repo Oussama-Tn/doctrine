@@ -33,16 +33,16 @@ class PurchaseOrderFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        $this->createPurchaseOrdersForAllUsers($manager);
+        $this->createPurchaseOrdersForSomeUsers($manager);
     }
 
-    private function createPurchaseOrdersForAllUsers(ObjectManager $manager)
+    private function createPurchaseOrdersForSomeUsers(ObjectManager $manager)
     {
-        $users = $this->userRepository->findAll();
+        $someUsers = $this->getSomeUsers();
 
-        foreach ($users as $user) {
+        foreach ($someUsers as $user) {
 
-            $randomNumber = rand(2, 7);
+            $randomNumber = rand(1, 3);
 
             for ($i = 0; $i < $randomNumber; $i++) {
                 $purchaseOrder = new PurchaseOrder();
@@ -53,6 +53,25 @@ class PurchaseOrderFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $manager->flush();
+    }
+
+    /**
+     * We'll use this for example to see how many users doesn't have orders yet
+     * @return array
+     */
+    private function getSomeUsers(): array
+    {
+        $users = $this->userRepository->findAll();
+
+        $someUsers = [];
+
+        foreach ($users as $k => $user) {
+            if ($k > 2) {
+                $someUsers[] = $user;
+            }
+        }
+
+        return $someUsers;
     }
 
     public function getDependencies()

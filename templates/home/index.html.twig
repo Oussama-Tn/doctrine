@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <ul>
+            {% for row in allRows %}
+
+                <li>#{{ row.id }} {{ row.email }}</li>
+
+                <ul>
+                    {% for purchaseOrder in row.purchaseOrders %}
+
+                        <li>#{{ purchaseOrder.id }} {{ purchaseOrder.date|date('Y-m-d') }}</li>
+
+                        <ul>
+                            {% for product in purchaseOrder.product %}
+
+                                <li>#{{ product.id }} {{ product.name }}
+                                    (#{{ product.productCategory.id }} {{ product.productCategory.name }})
+                                </li>
+
+
+                            {% endfor %}
+                        </ul>
+
+                    {% endfor %}
+                </ul>
+
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

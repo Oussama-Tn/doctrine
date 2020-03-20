@@ -30,11 +30,12 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
         foreach ($productCategories as $productCategory) {
 
-            $randomNumber = rand(4, 9);
+            $randomNumber = rand(2, 5);
 
             for ($i = 1; $i < $randomNumber; $i++) {
                 $product = new Product();
                 $product->setPrice(rand(200, 2000));
+                $product->setDescription($this->faker->sentence(6));
                 $product->setIsAvailable($this->faker->boolean);
                 $product->setName('Product ' . $productCategory->getId() . '/' . $i);
                 $product->setProductCategory($productCategory);
