@@ -50,14 +50,20 @@ class Product
      */
     private $isAvailable;
 
+//    /**
+//     * @ORM\ManyToMany(targetEntity="App\Entity\PurchaseOrder", mappedBy="product")
+//     */
+//    private $purchaseOrders;
+
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\PurchaseOrder", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="App\Entity\PurchaseOrderProduct", mappedBy="product")
      */
-    private $purchaseOrders;
+    private $purchaseOrderProducts;
 
     public function __construct()
     {
-        $this->purchaseOrders = new ArrayCollection();
+        //$this->purchaseOrders = new ArrayCollection();
+        $this->purchaseOrderProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,29 +131,60 @@ class Product
         return $this;
     }
 
+//    /**
+//     * @return Collection|PurchaseOrder[]
+//     */
+//    public function getPurchaseOrders(): Collection
+//    {
+//        return $this->purchaseOrders;
+//    }
+//
+//    public function addPurchaseOrder(PurchaseOrder $purchaseOrder): self
+//    {
+//        if (!$this->purchaseOrders->contains($purchaseOrder)) {
+//            $this->purchaseOrders[] = $purchaseOrder;
+//            $purchaseOrder->addProduct($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removePurchaseOrder(PurchaseOrder $purchaseOrder): self
+//    {
+//        if ($this->purchaseOrders->contains($purchaseOrder)) {
+//            $this->purchaseOrders->removeElement($purchaseOrder);
+//            $purchaseOrder->removeProduct($this);
+//        }
+//
+//        return $this;
+//    }
+
     /**
-     * @return Collection|PurchaseOrder[]
+     * @return Collection|PurchaseOrderProduct[]
      */
-    public function getPurchaseOrders(): Collection
+    public function getPurchaseOrderProducts(): Collection
     {
-        return $this->purchaseOrders;
+        return $this->purchaseOrderProducts;
     }
 
-    public function addPurchaseOrder(PurchaseOrder $purchaseOrder): self
+    public function addPurchaseOrderProduct(PurchaseOrderProduct $purchaseOrderProduct): self
     {
-        if (!$this->purchaseOrders->contains($purchaseOrder)) {
-            $this->purchaseOrders[] = $purchaseOrder;
-            $purchaseOrder->addProduct($this);
+        if (!$this->purchaseOrderProducts->contains($purchaseOrderProduct)) {
+            $this->purchaseOrderProducts[] = $purchaseOrderProduct;
+            $purchaseOrderProduct->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removePurchaseOrder(PurchaseOrder $purchaseOrder): self
+    public function removePurchaseOrderProduct(PurchaseOrderProduct $purchaseOrderProduct): self
     {
-        if ($this->purchaseOrders->contains($purchaseOrder)) {
-            $this->purchaseOrders->removeElement($purchaseOrder);
-            $purchaseOrder->removeProduct($this);
+        if ($this->purchaseOrderProducts->contains($purchaseOrderProduct)) {
+            $this->purchaseOrderProducts->removeElement($purchaseOrderProduct);
+            // set the owning side to null (unless already changed)
+            if ($purchaseOrderProduct->getProduct() === $this) {
+                $purchaseOrderProduct->setProduct(null);
+            }
         }
 
         return $this;

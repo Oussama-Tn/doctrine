@@ -24,6 +24,32 @@
     * Using Query Builder: `App\Controller\QueryBuilderController`[File](./src/Controller/QueryBuilderController.php)
 
 
+## Examples
+
+    ```
+      ROUTE NAME                          URL                                          
+      ----------                          -------------------                          
+      qb_like                             /query-builder/like                          
+      qb_order_by                         /query-builder/order-by                      
+      qb_limit                            /query-builder/limit                         
+      qb_max                              /query-builder/max                           
+      qb_having                           /query-builder/having                        
+      qb_inner_join                       /query-builder/inner-join                    
+      qb_inner_join_with_group_by         /query-builder/inner-join-with-group-by      
+      qb_left_join                        /query-builder/left-join                     
+      qb_not_exists                       /query-builder/not-exists                    
+      qb_exists                           /query-builder/exists                        
+      qb                                  /repository/                                 
+      qb_find_one                         /repository/find-one/{id}                    
+      qb_find_all                         /repository/find-all                         
+      qb_find_one_by                      /repository/find-one-by/{attribute}/{value}  
+      qb_find_by                          /repository/find-by/{attribute}/{value}      
+      repository_count_result             /repository/count-result                     
+      random_select                       /random-select                               
+      random_select_serialized            /random-select-serialized   
+      random_select_auto_serialized       /random-select-auto-serialized               
+    ```
+
 ## Symfony commands:
 
 * `composer create-project symfony/website-skeleton doctrine`
