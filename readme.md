@@ -13,6 +13,7 @@
     ```
     User
     PurchaseOrder
+    PurchaseOrderProduct
     Product
     ProductCategory
     ```
@@ -20,9 +21,9 @@
 
 * Examples:
 
-    * Using repositories: `App\Controller\RepositoryController` [File](./src/Controller/RepositoryController.php)
     * Using Query Builder: `App\Controller\QueryBuilderController`[File](./src/Controller/QueryBuilderController.php)
-
+    * Using repositories: `App\Controller\RepositoryController` [File](./src/Controller/RepositoryController.php)
+      * Use BaseRepository for common functions [File](./src/Repository/BaseRepository.php)
 
 ## Examples
 
@@ -39,15 +40,19 @@
       qb_left_join                        /query-builder/left-join                     
       qb_not_exists                       /query-builder/not-exists                    
       qb_exists                           /query-builder/exists                        
-      qb                                  /repository/                                 
-      qb_find_one                         /repository/find-one/{id}                    
-      qb_find_all                         /repository/find-all                         
-      qb_find_one_by                      /repository/find-one-by/{attribute}/{value}  
-      qb_find_by                          /repository/find-by/{attribute}/{value}      
+      qb_sum                              /query-builder/sum                           
+      qb_avg                              /query-builder/avg                           
+      qb_count                            /query-builder/count                         
+      repository                          /repository/                                 
+      repository_find_one                 /repository/find-one/{id}                    
+      repository_find_all                 /repository/find-all                         
+      repository_find_one_by              /repository/find-one-by/{attribute}/{value}  
+      repository_find_by                  /repository/find-by/{attribute}/{value}      
       repository_count_result             /repository/count-result                     
-      random_select                       /random-select                               
-      random_select_serialized            /random-select-serialized   
-      random_select_auto_serialized       /random-select-auto-serialized               
+      random_select_index                 /random-select/                               
+      random_select_auto_serialized       /random-select/random-select-auto-serialized  
+      random_select                       /random-select/random-select                  
+      random_select_serialized            /random-select/random-select-serialized                
     ```
 
 ## Symfony commands:

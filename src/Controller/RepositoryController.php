@@ -39,7 +39,7 @@ class RepositoryController extends AbstractController
     }
 
     /**
-     * @Route("/find-one/{id}", name="qb_find_one")
+     * @Route("/find-one/{id}", name="repository_find_one")
      */
     public function find(ProductRepository $productRepository, $id = 1)
     {
@@ -50,7 +50,7 @@ class RepositoryController extends AbstractController
     }
 
     /**
-     * @Route("/find-all", name="qb_find_all")
+     * @Route("/find-all", name="repository_find_all")
      */
     public function findAll(ProductRepository $productRepository)
     {
@@ -61,7 +61,7 @@ class RepositoryController extends AbstractController
     }
 
     /**
-     * @Route("/find-one-by/{attribute}/{value}", name="qb_find_one_by")
+     * @Route("/find-one-by/{attribute}/{value}", name="repository_find_one_by")
      */
     public function findOneBy(ProductRepository $productRepository, string $attribute = 'id', string $value = '1')
     {
@@ -75,7 +75,7 @@ class RepositoryController extends AbstractController
     }
 
     /**
-     * @Route("/find-by/{attribute}/{value}", name="qb_find_by")
+     * @Route("/find-by/{attribute}/{value}", name="repository_find_by")
      */
     public function findBy(ProductRepository $productRepository, string $attribute = 'id', string $value = '1')
     {

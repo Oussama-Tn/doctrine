@@ -16,10 +16,13 @@
                         <li>#{{ purchaseOrder.id }} {{ purchaseOrder.date|date('Y-m-d') }}</li>
 
                         <ul>
-                            {% for product in purchaseOrder.product %}
+                            {% for purchaseOrderProduct in purchaseOrder.purchaseOrderProducts %}
 
-                                <li>#{{ product.id }} {{ product.name }}
-                                    (#{{ product.productCategory.id }} {{ product.productCategory.name }})
+                                <li>#{{ purchaseOrderProduct.product.id }} {{ purchaseOrderProduct.product.name }}
+
+                                    <small>[ Quantity {{ purchaseOrderProduct.quantity }} ]</small>
+
+                                    (#{{ purchaseOrderProduct.product.productCategory.id }} {{ purchaseOrderProduct.product.productCategory.name }})
                                 </li>
 
 

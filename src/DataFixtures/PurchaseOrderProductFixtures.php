@@ -39,7 +39,7 @@ class PurchaseOrderProductFixtures extends Fixture implements DependentFixtureIn
 
                 $purchaseOrderProduct = new PurchaseOrderProduct();
                 $purchaseOrderProduct->setProduct($product);
-                $purchaseOrderProduct->setQuantity(rand(1, 3));
+                $purchaseOrderProduct->setQuantity(rand(1, 10));
                 $manager->persist($purchaseOrderProduct);
 
                 $purchaseOrder->addPurchaseOrderProduct($purchaseOrderProduct);

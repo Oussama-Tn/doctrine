@@ -6,18 +6,29 @@ use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class TestController extends AbstractController
+/**
+ * @Route("/random-select")
+ * Class SerializeController
+ * @package App\Controller
+ */
+
+class RandomSelectController extends AbstractController
 {
     /**
-     * @Route("/test", name="test")
+     * @Route("/", name="random_select_index")
      */
     public function index()
     {
-        return $this->render('test/index.html.twig', [
-            'controller_name' => 'TestController',
+        $referenceType = UrlGeneratorInterface::ABSOLUTE_URL;
+
+        return $this->json([
+            'random_select' => $this->generateUrl('random_select', [], $referenceType),
+            'random_select_serialized' => $this->generateUrl('random_select_serialized', [], $referenceType),
+            'random_select_auto_serialized' => $this->generateUrl('random_select_auto_serialized', [], $referenceType),
         ]);
     }
 

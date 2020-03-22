@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Entity\PurchaseOrder;
+use App\Entity\PurchaseOrderProduct;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,6 +44,7 @@ class QueryBuilderController extends AbstractController
     /**
      * Example: /query-builder/like?likeString=/1
      * @Route("/like", name="qb_like")
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function like(Request $request)
@@ -256,7 +258,8 @@ class QueryBuilderController extends AbstractController
         $query = $qb->select('u.id', 'u.email')
             ->from(User::class, 'u')
             ->leftJoin('u.purchaseOrders', 'po')
-            ->leftJoin('po.product', 'p')
+            ->leftJoin('po.purchaseOrderProducts', 'pop')
+            ->leftJoin('pop.product', 'p')
             ->leftJoin('p.productCategory', 'pc')
             ->where('pc.name like :pc_name')
             ->setParameter(':pc_name', $productCategoryName)
@@ -335,6 +338,86 @@ class QueryBuilderController extends AbstractController
         $data = [
             'info' => 'The EXISTS operator is used to test for the existence of any record in a subquery.
                         The EXISTS operator returns true if the subquery returns one or more records.',
+            'query' => $query->getSQL(),
+            'result' => $query->getResult(),
+        ];
+
+        return $this->json($data);
+    }
+
+
+    /**
+     * @Route("/sum", name="qb_sum")
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function sum()
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+
+        $query = $qb->select("SUM(pop.quantity) as TOTAL_PURCHASED_PRODUCT_QUANTITY")
+            ->from(PurchaseOrderProduct::class, 'pop')
+            ->getQuery();
+
+        $data = [
+            'info' => [
+                "The SUM() function returns the total sum of a numeric column.",
+                "The AVG() function returns the average value of a numeric column.",
+                "The COUNT() function returns the number of rows that matches a specified criteria.",
+            ],
+            'query' => $query->getSQL(),
+            'result' => $query->getResult(),
+        ];
+
+        return $this->json($data);
+    }
+
+    /**
+     * @Route("/avg", name="qb_avg")
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function avg()
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+
+        $query = $qb->select("pc.name as CATEGORY_NAME", "AVG(p.price) AS AVERAGE_PRICE")
+            ->from(ProductCategory::class, 'pc')
+            ->leftJoin('pc.products', 'p')
+            ->groupBy('pc.name')
+            ->getQuery();
+
+        $data = [
+            'info' => [
+                "The AVG() function returns the average value of a numeric column.",
+                "The SUM() function returns the total sum of a numeric column.",
+                "The COUNT() function returns the number of rows that matches a specified criteria.",
+            ],
+            'query' => $query->getSQL(),
+            'result' => $query->getResult(),
+        ];
+
+        return $this->json($data);
+    }
+
+    /**
+     * @Route("/count", name="qb_count")
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function count()
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+
+        $query = $qb->select("u.id as USER_ID", "count(po.id) AS COUNT_PURCHASE_ORDER")
+            ->from(User::class, 'u')
+            ->leftJoin('u.purchaseOrders', 'po')
+            ->groupBy('u.id')
+            ->getQuery();
+
+        $data = [
+            'info' => [
+                "The COUNT() function returns the number of rows that matches a specified criteria.",
+                "The AVG() function returns the average value of a numeric column.",
+                "The SUM() function returns the total sum of a numeric column.",
+            ],
             'query' => $query->getSQL(),
             'result' => $query->getResult(),
         ];
